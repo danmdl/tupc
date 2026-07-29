@@ -105,6 +105,18 @@
   /* ---------- hero ---------- */
   .hero{padding-block:clamp(2.75rem,7vw,5.5rem) clamp(2.5rem,6vw,4.5rem);}
 
+  .hero-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+    grid-template-areas:
+      "copy readout"
+      "actions readout";
+    column-gap:clamp(2rem,5vw,4rem);
+    align-items:start;
+  }
+  .hero-copy{grid-area:copy;}
+  .hero-readout{grid-area:readout;align-self:center;}
+
   .readout{
     background:var(--card);
     border:1.5px solid var(--ink);
@@ -112,6 +124,7 @@
     box-shadow:5px 5px 0 var(--steel-deep);
     padding:clamp(1.1rem,3vw,1.6rem);
     max-width:34rem;
+    width:100%;
   }
   .readout-head{
     display:flex;align-items:center;gap:.55rem;
@@ -132,16 +145,20 @@
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
 
   .hero h1{
-    font-size:clamp(2.4rem,7.5vw,4.6rem);
-    margin-top:clamp(1.75rem,4vw,2.5rem);
-    max-width:19ch;
+    font-size:clamp(2.4rem,5.6vw,4.1rem);
+    margin-top:0;
   }
   .hero h1 em{font-style:normal;background:var(--volt);padding:0 .12em;box-decoration-break:clone;}
   .hero .lede{
     margin-top:1.1rem;max-width:46ch;
     font-size:1.08rem;color:var(--slate);
   }
-  .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem;}
+  .actions{
+    grid-area:actions;
+    display:flex;flex-wrap:wrap;gap:.7rem;
+    margin-top:clamp(1.5rem,3vw,2rem);
+    align-self:start;
+  }
 
   /* ---------- worksheet / services ---------- */
   .sheet{
@@ -247,6 +264,19 @@
     display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;
   }
 
+  @media (max-width:900px){
+    .hero-grid{
+      grid-template-columns:1fr;
+      grid-template-areas:
+        "copy"
+        "readout"
+        "actions";
+      row-gap:clamp(1.75rem,4vw,2.25rem);
+    }
+    .hero-readout{align-self:start;}
+    .actions{margin-top:0;}
+  }
+
   @media (max-width:620px){
     .row{grid-template-columns:1fr;}
     .bar .btn span.hide-sm{display:none;}
@@ -273,26 +303,35 @@
 <main id="top">
 
   <section class="shell hero">
-    <div class="readout" aria-label="Consultas frecuentes y el servicio que resuelve cada una">
-      <div class="readout-head">
-        <span class="lamp"></span>
-        <span class="tag">Estado del equipo</span>
-      </div>
-      <ul class="lines" id="readout">
-        <li><span class="q" data-q="&quot;no arranca&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="reparación"></span></li>
-        <li><span class="q" data-q="&quot;anda lentísima&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="diagnóstico"></span></li>
-        <li><span class="q" data-q="&quot;qué me conviene comprar&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="asesoría"></span></li>
-      </ul>
-    </div>
+    <div class="hero-grid">
 
-    <h1>Traelo y te digo <em>qué tiene</em> y cuánto sale.</h1>
-    <p class="lede">
-      Servicio técnico de computadoras, consultoría informática e insumos en Villa Lynch.
-      Reviso el equipo, te explico la falla y te paso el presupuesto. Recién ahí decidís si lo arreglamos.
-    </p>
-    <div class="actions">
-      <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">Contame qué le pasa</a>
-      <a class="btn btn--ghost" href="#servicios">Ver qué hago</a>
+      <div class="hero-copy">
+        <h1>Traelo y te digo <em>qué tiene</em> y cuánto sale.</h1>
+        <p class="lede">
+          Servicio técnico de computadoras, consultoría informática e insumos.
+          Reviso el equipo, te explico la falla y te paso el presupuesto. Recién ahí decidís si lo arreglamos.
+        </p>
+      </div>
+
+      <div class="hero-readout">
+        <div class="readout" aria-label="Consultas frecuentes y el servicio que resuelve cada una">
+          <div class="readout-head">
+            <span class="lamp"></span>
+            <span class="tag">Estado del equipo</span>
+          </div>
+          <ul class="lines" id="readout">
+            <li><span class="q" data-q="&quot;no arranca&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="reparación"></span></li>
+            <li><span class="q" data-q="&quot;anda lentísima&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="diagnóstico"></span></li>
+            <li><span class="q" data-q="&quot;qué me conviene comprar&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="asesoría"></span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">Contame qué le pasa</a>
+        <a class="btn btn--ghost" href="#servicios">Ver qué hago</a>
+      </div>
+
     </div>
   </section>
 
