@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tuPC — Reparación de computadoras, consultoría e insumos</title>
-<meta name="description" content="Servicio técnico de computadoras, consultoría informática e insumos. Diagnóstico y presupuesto sin cargo. Zona oeste del Gran Buenos Aires.">
+<title>Tu PC — Reparación de computadoras, consultoría e insumos</title>
+<meta name="description" content="Servicio técnico de computadoras, consultoría informática e insumos. Villa Lynch, General San Martín. Te digo qué tiene y cuánto sale antes de arreglarlo.">
 
-<meta property="og:title" content="tuPC — Reparación de computadoras, consultoría e insumos">
-<meta property="og:description" content="Diagnóstico y presupuesto sin cargo. Traelo y te digo qué tiene.">
+<meta property="og:title" content="Tu PC — Reparación de computadoras, consultoría e insumos">
+<meta property="og:description" content="Servicio técnico, consultoría e insumos en Villa Lynch, General San Martín. Traelo y te digo qué tiene.">
 <meta property="og:url" content="https://tupc.com.ar">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
@@ -61,7 +61,6 @@
     color:var(--slate);
   }
 
-  /* focus visibility */
   a:focus-visible,button:focus-visible{
     outline:2.5px solid var(--ink);
     outline-offset:3px;
@@ -176,7 +175,7 @@
     padding:.28rem .7rem;color:var(--slate);background:var(--card);
   }
 
-  /* ---------- process: a real sequence, so it's numbered ---------- */
+  /* ---------- process ---------- */
   .flow{
     border-top:1.5px solid var(--ink);
     padding-block:clamp(2.5rem,6vw,4rem);
@@ -196,6 +195,36 @@
   .step h3{font-size:1.1rem;font-weight:600;margin-bottom:.45rem;}
   .step p{color:var(--slate);font-size:.96rem;}
 
+  /* ---------- reviews ---------- */
+  .said{
+    border-top:1.5px solid var(--ink);
+    padding-block:clamp(2.5rem,6vw,4rem);
+  }
+  .quotes{
+    columns:3 19rem;
+    column-gap:1rem;
+    margin-top:2.25rem;
+  }
+  .quote{
+    break-inside:avoid;
+    background:var(--card);
+    border:1.5px solid var(--ink);
+    border-top:5px solid var(--volt);
+    border-radius:10px;
+    padding:1.25rem;
+    margin:0 0 1rem;
+  }
+  .quote blockquote{margin:0;font-size:.98rem;}
+  .quote figcaption{
+    margin-top:.9rem;padding-top:.7rem;
+    border-top:1px solid var(--wire);
+    font-family:var(--mono);font-size:.76rem;
+    display:flex;flex-wrap:wrap;gap:.15rem 1rem;justify-content:space-between;
+  }
+  .quote .who{font-weight:500;}
+  .quote .when{color:var(--slate);}
+  .said-foot{margin-top:1.25rem;}
+
   /* ---------- contact ---------- */
   .contact{
     border-top:1.5px solid var(--ink);
@@ -204,12 +233,13 @@
   .contact h2{font-size:clamp(1.9rem,5.5vw,3.2rem);max-width:22ch;}
   .contact .lede{margin-top:1rem;color:var(--slate);max-width:44ch;}
   .lines-of-contact{
-    margin-top:2rem;display:grid;gap:.15rem;
+    margin-top:2rem;display:grid;gap:.35rem;
     font-family:var(--mono);font-size:.95rem;
   }
+  .lines-of-contact div{display:flex;gap:.6rem;flex-wrap:wrap;}
+  .lines-of-contact .k{color:var(--slate);min-width:5.5rem;}
   .lines-of-contact a{text-decoration:none;border-bottom:1.5px solid var(--volt);padding-bottom:1px;}
   .lines-of-contact a:hover{background:var(--volt);}
-  .lines-of-contact span{color:var(--slate);}
 
   footer{
     border-top:1px solid var(--wire);
@@ -220,6 +250,7 @@
   @media (max-width:620px){
     .row{grid-template-columns:1fr;}
     .bar .btn span.hide-sm{display:none;}
+    .quotes{columns:1;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -232,7 +263,7 @@
 
 <header class="bar">
   <div class="shell bar-in">
-    <a class="mark" href="#top">tuPC</a>
+    <a class="mark" href="#top">Tu PC</a>
     <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">
       Escribime <span class="hide-sm">por WhatsApp</span>
     </a>
@@ -256,8 +287,8 @@
 
     <h1>Traelo y te digo <em>qué tiene</em> y cuánto sale.</h1>
     <p class="lede">
-      Servicio técnico de computadoras, consultoría informática e insumos.
-      El diagnóstico y el presupuesto no se cobran: si no te cierra, te llevás el equipo sin pagar nada.
+      Servicio técnico de computadoras, consultoría informática e insumos en Villa Lynch.
+      Reviso el equipo, te explico la falla y te paso el presupuesto. Recién ahí decidís si lo arreglamos.
     </p>
     <div class="actions">
       <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">Contame qué le pasa</a>
@@ -330,7 +361,7 @@
       <div class="step">
         <span class="n">02</span>
         <h3>Reviso y presupuesto</h3>
-        <p>Diagnóstico sin cargo. Te paso qué tiene y cuánto sale antes de tocar nada.</p>
+        <p>Te paso qué tiene y cuánto sale arreglarlo. Con eso decidís si seguimos.</p>
       </div>
       <div class="step">
         <span class="n">03</span>
@@ -340,21 +371,84 @@
     </div>
   </section>
 
+  <section class="shell said" id="resenas">
+    <div class="sheet-head">
+      <span class="tag">Reseñas</span>
+      <h2>Lo que dicen en Google.</h2>
+    </div>
+
+    <div class="quotes">
+      <figure class="quote">
+        <blockquote>Daniel fue muy amable y expeditivo. Tuve un problema con la fuente de mi PC y me la arregló de un día para el otro. Súper recomendable.</blockquote>
+        <figcaption><span class="who">Matías Salcedo</span><span class="when">hace 3 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Un genio Dani, me dejó la PC 0km, le puso pasta térmica de la mejor calidad y es sincero en todo el diagnóstico que hace de tu equipo, un capo por definición.</blockquote>
+        <figcaption><span class="who">Axhelll</span><span class="when">hace 2 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Genio total, me resolvió rapidísimo, cumplió con todo. Compartió fotos del proceso. Un lujo.</blockquote>
+        <figcaption><span class="who">Joaquín Enriquez</span><span class="when">hace 4 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Excelente servicio. Al principio dudé porque no hay oficina física, pero me guié por las reseñas positivas de Google y decidí seguir adelante. Una notebook tenía un problema de disco rígido, ya era un poco vieja. Se lo reemplazaron por un SSD. De primera.</blockquote>
+        <figcaption><span class="who">Juan Darío Delgado</span><span class="when">hace 10 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Le llevé una PC gamer de alta gama y me la dejó impecable: el gabinete, los coolers, la refrigeración líquida y todo el sistema. ¡Quedó perfecta!</blockquote>
+        <figcaption><span class="who">Enzo Herbas</span><span class="when">hace 8 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Un miércoles le llevamos la notebook porque no cerraba bien y el teclado fallaba. Daniel nos explicó rápido, con amabilidad y claridad qué tenía y cómo podíamos solucionarlo. Para el lunes siguiente, en menos de una semana, estaba resuelto. Lo recomiendo mucho, ¡quedamos muy conformes!</blockquote>
+        <figcaption><span class="who">Aldana Marinangeli</span><span class="when">hace 2 años</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Cada vez que se me rompe una notebook, mía o de un familiar o un amigo, recurro a Servicio Técnico Dan. Me asesoran sobre la mejor solución para el equipo y para lo que necesito, con honestidad y a precios justos.</blockquote>
+        <figcaption><span class="who">Martín Merino</span><span class="when">hace 1 año</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>¡Excelente servicio! Quedamos muy conformes con la dedicación para resolver el problema de la PC, la forma de explicar la falla y la amabilidad de Daniel. Todo resuelto en 24 horas, que para un negocio chico es fundamental.</blockquote>
+        <figcaption><span class="who">Fernando Cabrera</span><span class="when">hace 1 año</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>Excelente servicio, estuvo antes de lo esperado, muy amable y la relación precio-calidad excelente. Muy recomendable.</blockquote>
+        <figcaption><span class="who">Valeria Varela</span><span class="when">hace 9 meses</span></figcaption>
+      </figure>
+
+      <figure class="quote">
+        <blockquote>¡EXCELENTE EXPERIENCIA! Encontré su contacto en Google y me guié por las reseñas, que me dieron confianza. Lo contacté por teléfono y arreglamos para llevarle la PC un sábado con la fuente quemada.</blockquote>
+        <figcaption><span class="who">Fernando Segura Ghisio</span><span class="when">hace 2 años</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="said-foot">
+      <a class="btn btn--ghost" href="https://www.google.com/maps/place/Servicio+T%C3%A9cnico+Dan+-+Reparaci%C3%B3n+de+PC+Computadoras+Notebook+Laptop+(t%C3%A9cnico+particular)/@-34.5959083,-58.5263714,15z/data=!4m8!3m7!1s0x95bcb7d0982867cd:0x5f938a26f256a7e8!8m2!3d-34.5929636!4d-58.5273395!9m1!1b1!16s%2Fg%2F11jcgcbbcg" target="_blank" rel="noopener">Ver todas las reseñas en Google</a>
+    </div>
+  </section>
+
   <section class="shell contact" id="contacto">
     <span class="tag">Contacto</span>
     <h2>¿Arrancamos?</h2>
     <p class="lede">Mandame un mensaje contándome qué equipo es y qué le pasa. Contesto el mismo día.</p>
 
     <div class="lines-of-contact">
-      <div><span>WhatsApp&nbsp;&nbsp;</span><a href="https://wa.me/5491165129359" target="_blank" rel="noopener">+54 9 11 6512-9359</a></div>
-      <div><span>Mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="mailto:hola@tupc.com.ar">hola@tupc.com.ar</a></div>
-      <div><span>Zona&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Santos Lugares y alrededores · a domicilio o en taller</div>
+      <div><span class="k">WhatsApp</span><a href="https://wa.me/5491165129359" target="_blank" rel="noopener">+54 9 11 6512-9359</a></div>
+      <div><span class="k">Mail</span><a href="mailto:hola@tupc.com.ar">hola@tupc.com.ar</a></div>
+      <div><span class="k">Zona</span><span>Villa Lynch · General San Martín</span></div>
     </div>
   </section>
 
   <footer class="shell">
-    <span class="tag">tuPC · Reparación, consultoría e insumos</span>
-    <span class="tag">Buenos Aires, Argentina</span>
+    <span class="tag">Tu PC · Reparación, consultoría e insumos</span>
+    <span class="tag">Villa Lynch, Buenos Aires</span>
   </footer>
 
 </main>
@@ -367,7 +461,7 @@
   var items = [].slice.call(document.querySelectorAll('#readout li'));
   var parts = [];
   items.forEach(function(li){
-    parts.push({el: li.querySelector('.q'),    text: li.querySelector('.q').dataset.q});
+    parts.push({el: li.querySelector('.q'),     text: li.querySelector('.q').dataset.q});
     parts.push({el: li.querySelector('.arrow'), text: li.querySelector('.arrow').dataset.a});
     parts.push({el: li.querySelector('.svc'),   text: li.querySelector('.svc').dataset.s});
   });

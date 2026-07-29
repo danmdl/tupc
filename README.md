@@ -1,6 +1,6 @@
-# tuPC
+# Tu PC
 
-Landing de **tuPC** — reparación de computadoras, consultoría/asesoría e insumos informáticos.
+Landing de **Tu PC** — reparación de computadoras, consultoría/asesoría e insumos informáticos.
 
 Producción: https://tupc.com.ar
 
