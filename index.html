@@ -85,13 +85,21 @@
     gap:1rem;padding-block:.85rem;
   }
   .mark{
-    font-family:var(--display);font-weight:800;font-size:1.15rem;
-    letter-spacing:-.03em;text-decoration:none;
-    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:var(--display);font-weight:800;font-size:1.05rem;
+    letter-spacing:-.02em;text-decoration:none;color:var(--ink);
+    display:inline-flex;align-items:center;gap:.55rem;
   }
-  .mark::before{
-    content:"";width:.62rem;height:.62rem;background:var(--volt);
-    border:1.5px solid var(--ink);border-radius:50%;flex:none;
+  .mark img{
+    width:2rem;height:2rem;
+    border-radius:50%;
+    display:block;
+  }
+  .mark-name{line-height:1;}
+  .mark-name b{display:block;font-weight:800;}
+  .mark-name small{
+    display:block;font-family:var(--mono);font-weight:500;
+    font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--slate);margin-top:.15rem;
   }
 
   .btn{
@@ -115,13 +123,17 @@
     display:grid;
     grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
     grid-template-areas:
-      "copy readout"
-      "actions readout";
+      "copy right"
+      "actions right";
     column-gap:clamp(2rem,5vw,4rem);
     align-items:start;
   }
   .hero-copy{grid-area:copy;}
-  .hero-readout{grid-area:readout;align-self:center;}
+  .hero-right{
+    grid-area:right;
+    display:flex;flex-direction:column;
+    gap:clamp(1rem,2vw,1.4rem);
+  }
 
   .readout{
     background:var(--card);
@@ -129,7 +141,6 @@
     border-radius:10px;
     box-shadow:5px 5px 0 var(--steel-deep);
     padding:clamp(1.1rem,3vw,1.6rem);
-    max-width:34rem;
     width:100%;
   }
   .readout-head{
@@ -171,6 +182,45 @@
     margin-top:clamp(1.5rem,3vw,2rem);
     align-self:start;
   }
+
+  /* ---------- build-card: "armá tu PC" ---------- */
+  .build{
+    background:var(--ink);
+    color:var(--card);
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    box-shadow:5px 5px 0 var(--volt);
+    padding:clamp(1.1rem,3vw,1.5rem);
+  }
+  .build-head{
+    display:flex;align-items:center;gap:.55rem;
+    padding-bottom:.7rem;margin-bottom:.9rem;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .build-head .tag{color:var(--wire);}
+  .build h3{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(1.15rem,2.3vw,1.4rem);
+    line-height:1.05;margin:0 0 .95rem;letter-spacing:-.02em;
+  }
+  .build-opts{display:grid;gap:.55rem;}
+  .build-opt{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.75rem .95rem;
+    background:transparent;
+    border:1.5px solid rgba(255,255,255,.22);
+    border-radius:8px;
+    color:var(--card);text-decoration:none;
+    font-family:var(--body);font-weight:500;font-size:.98rem;
+    transition:background .15s ease,border-color .15s ease,transform .15s ease;
+  }
+  .build-opt:hover{
+    background:var(--volt);color:var(--ink);
+    border-color:var(--volt);
+    transform:translateX(2px);
+  }
+  .build-opt .arrow{font-family:var(--mono);opacity:.7;}
+  .build-opt:hover .arrow{opacity:1;}
 
   /* ---------- worksheet / services ---------- */
   .sheet{
@@ -354,11 +404,10 @@
       grid-template-columns:1fr;
       grid-template-areas:
         "copy"
-        "readout"
+        "right"
         "actions";
       row-gap:clamp(1.75rem,4vw,2.25rem);
     }
-    .hero-readout{align-self:start;}
     .actions{margin-top:0;}
     .where-grid{grid-template-columns:1fr;}
   }
@@ -368,6 +417,8 @@
     .bar .btn span.hide-sm{display:none;}
     .quote{flex-basis:18rem;}
     .said-head{grid-template-columns:1fr;gap:.75rem;}
+    .mark-name small{display:none;}
+    .mark{font-size:.98rem;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -380,7 +431,13 @@
 
 <header class="bar">
   <div class="shell bar-in">
-    <a class="mark" href="#top">Tu PC</a>
+    <a class="mark" href="#top" aria-label="V&amp;R Computadoras — inicio">
+      <img src="/apple-touch-icon.png" alt="" width="32" height="32">
+      <span class="mark-name">
+        <b>V&amp;R Computadoras</b>
+        <small>Reparación · Consultoría · Insumos</small>
+      </span>
+    </a>
     <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">
       Escribime <span class="hide-sm">por WhatsApp</span>
     </a>
@@ -400,7 +457,7 @@
         </p>
       </div>
 
-      <div class="hero-readout">
+      <div class="hero-right">
         <div class="readout" aria-label="Consultas frecuentes y el servicio que resuelve cada una">
           <div class="readout-head">
             <span class="lamp"></span>
@@ -411,6 +468,21 @@
             <li><span class="q"></span><span class="arrow"></span><span class="svc"></span></li>
             <li><span class="q"></span><span class="arrow"></span><span class="svc"></span></li>
           </ul>
+        </div>
+
+        <div class="build" aria-label="Armá tu PC">
+          <div class="build-head">
+            <span class="tag">Armá tu PC</span>
+          </div>
+          <h3>¿No sabés qué necesitás? Elegí para qué la vas a usar.</h3>
+          <div class="build-opts">
+            <a class="build-opt" href="https://wa.me/5491165129359?text=Hola%20Dan%2C%20quiero%20armar%20una%20PC%20de%20oficina.%20%C2%BFMe%20orientas%3F" target="_blank" rel="noopener">
+              <span>Compu de oficina</span><span class="arrow">→</span>
+            </a>
+            <a class="build-opt" href="https://wa.me/5491165129359?text=Hola%20Dan%2C%20quiero%20armar%20una%20PC%20para%20dise%C3%B1o%20o%20gaming.%20%C2%BFMe%20orientas%3F" target="_blank" rel="noopener">
+              <span>Compu de diseño / gamer</span><span class="arrow">→</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -546,10 +618,10 @@
       </div>
       <div class="map-frame">
         <iframe
-          src="https://www.google.com/maps?q=Villa+Lynch,+General+San+Mart%C3%ADn,+Buenos+Aires&z=14&output=embed"
+          src="https://www.google.com/maps?q=Rep%C3%BAblica+del+L%C3%ADbano+4261,+Villa+Lynch,+General+San+Mart%C3%ADn&z=16&output=embed"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Mapa de Villa Lynch, General San Martín"></iframe>
+          title="Mapa - República del Líbano 4261, Villa Lynch"></iframe>
       </div>
     </div>
   </section>
@@ -562,13 +634,13 @@
     <div class="lines-of-contact">
       <div><span class="k">WhatsApp</span><a href="https://wa.me/5491165129359" target="_blank" rel="noopener">+54 9 11 6512-9359</a></div>
       <div><span class="k">Mail</span><a href="mailto:hola@tupc.com.ar">hola@tupc.com.ar</a></div>
-      <div><span class="k">Zona</span><span>Villa Lynch · General San Martín</span></div>
+      <div><span class="k">Taller</span><a href="https://www.google.com/maps?q=Rep%C3%BAblica+del+L%C3%ADbano+4261,+Villa+Lynch" target="_blank" rel="noopener">República del Líbano 4261, Villa Lynch</a></div>
     </div>
   </section>
 
   <footer class="shell">
     <div>
-      <div class="tag" style="margin-bottom:.5rem;">Tu PC · Reparación, consultoría e insumos</div>
+      <div class="tag" style="margin-bottom:.5rem;">V&amp;R Computadoras · Reparación, consultoría e insumos</div>
       <div class="tag">Villa Lynch · General San Martín · Buenos Aires</div>
     </div>
     <div class="foot-social" aria-label="Redes sociales">
