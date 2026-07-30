@@ -306,7 +306,7 @@
     <div class="hero-grid">
 
       <div class="hero-copy">
-        <h1>Traelo y te digo <em>qué tiene</em> y cuánto sale.</h1>
+        <h1>Traé tu PC y te digo <em>qué tiene</em> y cuánto sale.</h1>
         <p class="lede">
           Servicio técnico de computadoras, consultoría informática e insumos.
           Reviso el equipo, te explico la falla y te paso el presupuesto. Recién ahí decidís si lo arreglamos.
@@ -319,10 +319,10 @@
             <span class="lamp"></span>
             <span class="tag">Estado del equipo</span>
           </div>
-          <ul class="lines" id="readout">
-            <li><span class="q" data-q="&quot;no arranca&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="reparación"></span></li>
-            <li><span class="q" data-q="&quot;anda lentísima&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="diagnóstico"></span></li>
-            <li><span class="q" data-q="&quot;qué me conviene comprar&quot;"></span><span class="arrow" data-a="→"></span><span class="svc" data-s="asesoría"></span></li>
+          <ul class="lines" id="readout" aria-live="polite">
+            <li><span class="q"></span><span class="arrow"></span><span class="svc"></span></li>
+            <li><span class="q"></span><span class="arrow"></span><span class="svc"></span></li>
+            <li><span class="q"></span><span class="arrow"></span><span class="svc"></span></li>
           </ul>
         </div>
       </div>
@@ -497,38 +497,95 @@
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- hero readout: types the three things people actually say --- */
-  var items = [].slice.call(document.querySelectorAll('#readout li'));
-  var parts = [];
-  items.forEach(function(li){
-    parts.push({el: li.querySelector('.q'),     text: li.querySelector('.q').dataset.q});
-    parts.push({el: li.querySelector('.arrow'), text: li.querySelector('.arrow').dataset.a});
-    parts.push({el: li.querySelector('.svc'),   text: li.querySelector('.svc').dataset.s});
-  });
+  /* --- hero readout: five sets of things people actually say, in loop --- */
+  var sets = [
+    [['"no arranca"',              '→', 'reparación'],
+     ['"anda lentísima"',          '→', 'diagnóstico'],
+     ['"qué me conviene comprar"', '→', 'asesoría']],
+
+    [['"se apaga sola"',           '→', 'reparación'],
+     ['"pantalla azul"',           '→', 'diagnóstico'],
+     ['"me quedé sin espacio"',    '→', 'upgrade']],
+
+    [['"para trabajar y jugar"',   '→', 'asesoría'],
+     ['"tarda diez minutos"',      '→', 'diagnóstico'],
+     ['"quiero recuperar fotos"',  '→', 'reparación']],
+
+    [['"suena como un avión"',     '→', 'limpieza'],
+     ['"no reconoce el WiFi"',     '→', 'reparación'],
+     ['"para la oficina"',         '→', 'insumos']],
+
+    [['"tiene virus"',             '→', 'reparación'],
+     ['"la batería no dura"',      '→', 'diagnóstico'],
+     ['"cuál me llevo"',           '→', 'asesoría']]
+  ];
+
+  var lis = [].slice.call(document.querySelectorAll('#readout li'));
+
+  function flat(setIx){
+    var out = [];
+    sets[setIx].forEach(function(row, i){
+      out.push({el: lis[i].querySelector('.q'),     text: row[0]});
+      out.push({el: lis[i].querySelector('.arrow'), text: row[1]});
+      out.push({el: lis[i].querySelector('.svc'),   text: row[2]});
+    });
+    return out;
+  }
 
   if (reduce) {
-    parts.forEach(function(p){ p.el.textContent = p.text; });
+    // static: leave the first set on screen
+    flat(0).forEach(function(p){ p.el.textContent = p.text; });
   } else {
     var caret = document.createElement('span');
     caret.className = 'caret';
-    var pi = 0, ci = 0;
 
-    function tick(){
-      if (pi >= parts.length) { caret.remove(); return; }
-      var p = parts[pi];
-      if (ci === 0) p.el.appendChild(caret);
+    var setIx = 0;
+    var loops = 0;
+    var MAX_LOOPS = 5;
 
-      if (ci < p.text.length) {
-        caret.insertAdjacentText('beforebegin', p.text.charAt(ci));
-        ci++;
-        setTimeout(tick, 38 + Math.random() * 45);
-      } else {
-        caret.remove();
-        pi++; ci = 0;
-        setTimeout(tick, p.el.classList.contains('svc') ? 420 : 130);
-      }
+    function clearAll(){
+      lis.forEach(function(li){
+        li.querySelectorAll('span').forEach(function(s){ s.textContent = ''; });
+      });
     }
-    setTimeout(tick, 450);
+
+    function typeSet(){
+      var parts = flat(setIx);
+      var pi = 0, ci = 0;
+
+      function tick(){
+        if (pi >= parts.length) {
+          caret.remove();
+          // pausa con el texto completo a la vista, despues borra y sigue
+          setTimeout(function(){
+            setIx++;
+            if (setIx >= sets.length) {
+              setIx = 0;
+              loops++;
+              if (loops >= MAX_LOOPS) return;  // stop after 5 full cycles
+            }
+            clearAll();
+            setTimeout(typeSet, 260);
+          }, 2000);
+          return;
+        }
+        var p = parts[pi];
+        if (ci === 0) p.el.appendChild(caret);
+
+        if (ci < p.text.length) {
+          caret.insertAdjacentText('beforebegin', p.text.charAt(ci));
+          ci++;
+          setTimeout(tick, 38 + Math.random() * 45);
+        } else {
+          caret.remove();
+          pi++; ci = 0;
+          setTimeout(tick, p.el.classList.contains('svc') ? 380 : 120);
+        }
+      }
+      tick();
+    }
+
+    setTimeout(typeSet, 450);
   }
 
   /* --- reveal service rows on scroll --- */
