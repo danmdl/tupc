@@ -221,26 +221,55 @@
   .step h3{font-size:1.1rem;font-weight:600;margin-bottom:.45rem;}
   .step p{color:var(--slate);font-size:.96rem;}
 
-  /* ---------- reviews ---------- */
+  /* ---------- reviews (marquee style) ---------- */
   .said{
     border-top:1.5px solid var(--ink);
     padding-block:clamp(2.5rem,6vw,4rem);
+    overflow:hidden;
   }
-  .quotes{
-    columns:3 19rem;
-    column-gap:1rem;
-    margin-top:2.25rem;
+  .said-head{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:1.5rem;
+    align-items:center;
+    margin-bottom:2rem;
+    padding-bottom:1.5rem;
+    border-bottom:1px solid var(--wire);
+  }
+  .rating{display:flex;flex-direction:column;line-height:1;}
+  .rating-num{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(3rem,6vw,4.5rem);letter-spacing:-.03em;
+  }
+  .rating-stars{color:var(--volt-deep);font-size:1.1rem;letter-spacing:.08em;margin-top:.35rem;}
+  .rating-count{font-family:var(--mono);font-size:.78rem;color:var(--slate);margin-top:.4rem;}
+  .said-title h2{font-size:clamp(1.5rem,3.6vw,2.3rem);}
+  .said-title p{color:var(--slate);margin-top:.35rem;font-size:.95rem;max-width:38ch;}
+
+  .marquee-wrap{
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  }
+  .marquee{
+    display:flex;gap:1rem;
+    width:max-content;
+    animation:scroll 100s linear infinite;
+  }
+  .marquee:hover{animation-play-state:paused;}
+  @keyframes scroll{
+    from{transform:translateX(0);}
+    to  {transform:translateX(-50%);}
   }
   .quote{
-    break-inside:avoid;
+    flex:0 0 22rem;
     background:var(--card);
     border:1.5px solid var(--ink);
     border-top:5px solid var(--volt);
     border-radius:10px;
     padding:1.25rem;
-    margin:0 0 1rem;
+    display:flex;flex-direction:column;
   }
-  .quote blockquote{margin:0;font-size:.98rem;}
+  .quote blockquote{margin:0;font-size:.98rem;flex:1;}
   .quote figcaption{
     margin-top:.9rem;padding-top:.7rem;
     border-top:1px solid var(--wire);
@@ -249,7 +278,37 @@
   }
   .quote .who{font-weight:500;}
   .quote .when{color:var(--slate);}
-  .said-foot{margin-top:1.25rem;}
+  .said-foot{margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:.6rem;padding-inline:var(--pad);}
+
+  /* ---------- location / map ---------- */
+  .where{
+    border-top:1.5px solid var(--ink);
+    padding-block:clamp(2.5rem,6vw,4rem);
+  }
+  .where-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);
+    gap:clamp(1.5rem,4vw,3rem);
+    align-items:start;
+    margin-top:1.75rem;
+  }
+  .where-copy h2{font-size:clamp(1.65rem,4vw,2.5rem);}
+  .where-copy p{margin-top:1rem;color:var(--slate);max-width:36ch;}
+  .where-copy .btn{margin-top:1.5rem;}
+  .map-frame{
+    position:relative;
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:5px 5px 0 var(--steel-deep);
+    aspect-ratio: 5 / 3;
+  }
+  .map-frame iframe{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    border:0;
+    filter:grayscale(.25) contrast(1.02);
+  }
 
   /* ---------- contact ---------- */
   .contact{
@@ -270,8 +329,22 @@
   footer{
     border-top:1px solid var(--wire);
     padding-block:1.5rem 2.5rem;
-    display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;
+    display:flex;flex-wrap:wrap;gap:1rem 1.5rem;justify-content:space-between;align-items:center;
   }
+  .foot-social{
+    display:flex;gap:.5rem;
+  }
+  .foot-social a{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:2.4rem;height:2.4rem;
+    border:1.5px solid var(--ink);
+    border-radius:999px;
+    background:var(--card);
+    text-decoration:none;
+    transition:background .15s ease,transform .15s ease;
+  }
+  .foot-social a:hover{background:var(--volt);transform:translateY(-1px);}
+  .foot-social svg{width:1.15rem;height:1.15rem;}
 
   @media (max-width:900px){
     .hero-grid{
@@ -284,12 +357,14 @@
     }
     .hero-readout{align-self:start;}
     .actions{margin-top:0;}
+    .where-grid{grid-template-columns:1fr;}
   }
 
   @media (max-width:620px){
     .row{grid-template-columns:1fr;}
     .bar .btn span.hide-sm{display:none;}
-    .quotes{columns:1;}
+    .quote{flex-basis:18rem;}
+    .said-head{grid-template-columns:1fr;gap:.75rem;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -420,66 +495,59 @@
     </div>
   </section>
 
-  <section class="shell said" id="resenas">
-    <div class="sheet-head">
-      <span class="tag">Reseñas</span>
-      <h2>Lo que dicen en Google.</h2>
+  <section class="said" id="resenas">
+    <div class="shell">
+      <div class="said-head">
+        <div class="rating">
+          <span class="rating-num">4,9</span>
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">70 reseñas en Google</span>
+        </div>
+        <div class="said-title">
+          <span class="tag">Reseñas</span>
+          <h2>Lo que dicen los clientes.</h2>
+          <p>Diez años de reparaciones, casi 100 reseñas y un 4,9 de promedio.</p>
+        </div>
+      </div>
     </div>
 
-    <div class="quotes">
-      <figure class="quote">
-        <blockquote>Daniel fue muy amable y expeditivo. Tuve un problema con la fuente de mi PC y me la arregló de un día para el otro. Súper recomendable.</blockquote>
-        <figcaption><span class="who">Matías Salcedo</span><span class="when">hace 3 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Un genio Dani, me dejó la PC 0km, le puso pasta térmica de la mejor calidad y es sincero en todo el diagnóstico que hace de tu equipo, un capo por definición.</blockquote>
-        <figcaption><span class="who">Axhelll</span><span class="when">hace 2 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Genio total, me resolvió rapidísimo, cumplió con todo. Compartió fotos del proceso. Un lujo.</blockquote>
-        <figcaption><span class="who">Joaquín Enriquez</span><span class="when">hace 4 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Excelente servicio. Al principio dudé porque no hay oficina física, pero me guié por las reseñas positivas de Google y decidí seguir adelante. Una notebook tenía un problema de disco rígido, ya era un poco vieja. Se lo reemplazaron por un SSD. De primera.</blockquote>
-        <figcaption><span class="who">Juan Darío Delgado</span><span class="when">hace 10 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Le llevé una PC gamer de alta gama y me la dejó impecable: el gabinete, los coolers, la refrigeración líquida y todo el sistema. ¡Quedó perfecta!</blockquote>
-        <figcaption><span class="who">Enzo Herbas</span><span class="when">hace 8 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Un miércoles le llevamos la notebook porque no cerraba bien y el teclado fallaba. Daniel nos explicó rápido, con amabilidad y claridad qué tenía y cómo podíamos solucionarlo. Para el lunes siguiente, en menos de una semana, estaba resuelto. Lo recomiendo mucho, ¡quedamos muy conformes!</blockquote>
-        <figcaption><span class="who">Aldana Marinangeli</span><span class="when">hace 2 años</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Cada vez que se me rompe una notebook, mía o de un familiar o un amigo, recurro a Servicio Técnico Dan. Me asesoran sobre la mejor solución para el equipo y para lo que necesito, con honestidad y a precios justos.</blockquote>
-        <figcaption><span class="who">Martín Merino</span><span class="when">hace 1 año</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>¡Excelente servicio! Quedamos muy conformes con la dedicación para resolver el problema de la PC, la forma de explicar la falla y la amabilidad de Daniel. Todo resuelto en 24 horas, que para un negocio chico es fundamental.</blockquote>
-        <figcaption><span class="who">Fernando Cabrera</span><span class="when">hace 1 año</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>Excelente servicio, estuvo antes de lo esperado, muy amable y la relación precio-calidad excelente. Muy recomendable.</blockquote>
-        <figcaption><span class="who">Valeria Varela</span><span class="when">hace 9 meses</span></figcaption>
-      </figure>
-
-      <figure class="quote">
-        <blockquote>¡EXCELENTE EXPERIENCIA! Encontré su contacto en Google y me guié por las reseñas, que me dieron confianza. Lo contacté por teléfono y arreglamos para llevarle la PC un sábado con la fuente quemada.</blockquote>
-        <figcaption><span class="who">Fernando Segura Ghisio</span><span class="when">hace 2 años</span></figcaption>
-      </figure>
+    <div class="marquee-wrap">
+      <div class="marquee" id="marquee">
+        <figure class="quote"><blockquote>Muy amable y expeditivo. Me arregló la fuente de la PC de un día para el otro.</blockquote><figcaption><span class="who">Matías Salcedo</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Un genio. Me dejó la PC 0km, pasta térmica de la mejor calidad, y es sincero en todo el diagnóstico. Un capo por definición.</blockquote><figcaption><span class="who">Axhelll</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Genio total, resolvió rapidísimo, cumplió con todo. Compartió fotos del proceso. Un lujo.</blockquote><figcaption><span class="who">Joaquín Enriquez</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Muy profesional. Le llevé componentes para armar una PC gamer y quedó fantástica. Muy recomendable.</blockquote><figcaption><span class="who">Franco Valenzuela</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Trabajo impecable. Claro, honesto, y me actualizó la notebook en menos de 24 horas.</blockquote><figcaption><span class="who">Cintia Giuffrida</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Súper rápido y detallista. Te da una idea clara del problema y las posibles soluciones. Muy recomendable.</blockquote><figcaption><span class="who">Luciano Soto</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Excelente servicio, muy atento y responsable con el trabajo y los tiempos. Explica todo para que se entienda.</blockquote><figcaption><span class="who">Maura Testori</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Diagnóstico honesto, resolución rápida, y la PC quedó como nueva.</blockquote><figcaption><span class="who">Lorena LM</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Un servicio remarcable. Se comunica constantemente, resuelve rápido y no cobra de más. Un lujo en el barrio.</blockquote><figcaption><span class="who">Jan Martínez</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Excelente atención y velocidad. Y sobre todo, honesto en el trabajo realizado.</blockquote><figcaption><span class="who">Christian Pannunzio</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Es un genio. Ya me hizo varios trabajos: me arregló una computadora, me armó otra desde cero. Muy responsable.</blockquote><figcaption><span class="who">Brian P</span><span class="when">★★★★★</span></figcaption></figure>
+        <figure class="quote"><blockquote>Excelente servicio. Explica el diagnóstico y el trabajo con claridad, y después te contacta para chequear que todo funcione bien.</blockquote><figcaption><span class="who">Omar Varela</span><span class="when">★★★★★</span></figcaption></figure>
+      </div>
     </div>
 
-    <div class="said-foot">
-      <a class="btn btn--ghost" href="https://www.google.com/maps/place/Servicio+T%C3%A9cnico+Dan+-+Reparaci%C3%B3n+de+PC+Computadoras+Notebook+Laptop+(t%C3%A9cnico+particular)/@-34.5959083,-58.5263714,15z/data=!4m8!3m7!1s0x95bcb7d0982867cd:0x5f938a26f256a7e8!8m2!3d-34.5929636!4d-58.5273395!9m1!1b1!16s%2Fg%2F11jcgcbbcg" target="_blank" rel="noopener">Ver todas las reseñas en Google</a>
+    <div class="shell said-foot">
+      <a class="btn btn--ghost" href="https://www.google.com/maps/place/Servicio+T%C3%A9cnico+Dan+-+Reparaci%C3%B3n+de+PC+Computadoras+Notebook+Laptop+(t%C3%A9cnico+particular)/@-34.5959083,-58.5263714,15z/data=!4m8!3m7!1s0x95bcb7d0982867cd:0x5f938a26f256a7e8!8m2!3d-34.5929636!4d-58.5273395!9m1!1b1!16s%2Fg%2F11jcgcbbcg" target="_blank" rel="noopener">Ver las 70 reseñas en Google</a>
+    </div>
+  </section>
+
+  <section class="shell where" id="donde">
+    <span class="tag">Dónde estoy</span>
+    <div class="where-grid">
+      <div class="where-copy">
+        <h2>Villa Lynch, a diez minutos de todo.</h2>
+        <p>El taller está en Villa Lynch, General San Martín. Bien conectado con Capital, San Martín, Villa Devoto y Villa Urquiza. Antes de venir escribime por WhatsApp y coordinamos.</p>
+        <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">Coordinar visita</a>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps?q=Villa+Lynch,+General+San+Mart%C3%ADn,+Buenos+Aires&z=14&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa de Villa Lynch, General San Martín"></iframe>
+      </div>
     </div>
   </section>
 
@@ -496,8 +564,21 @@
   </section>
 
   <footer class="shell">
-    <span class="tag">Tu PC · Reparación, consultoría e insumos</span>
-    <span class="tag">Villa Lynch, Buenos Aires</span>
+    <div>
+      <div class="tag" style="margin-bottom:.5rem;">Tu PC · Reparación, consultoría e insumos</div>
+      <div class="tag">Villa Lynch · General San Martín · Buenos Aires</div>
+    </div>
+    <div class="foot-social" aria-label="Redes sociales">
+      <a href="#" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (próximamente)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook (próximamente)">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8.5h2.85l.42-3.3H13.5V8.1c0-.95.26-1.6 1.63-1.6h1.74V3.55A23 23 0 0 0 14.33 3.4c-2.51 0-4.23 1.53-4.23 4.35v2.45H7.25v3.3h2.85V22h3.4z"/></svg>
+      </a>
+      <a href="https://wa.me/5491165129359" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.37-1.46-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.65-1.58-.9-2.16-.24-.57-.48-.5-.65-.5H8c-.2 0-.5.07-.77.37-.27.3-1.03 1-1.03 2.45 0 1.44 1.05 2.83 1.2 3.03.15.2 2.08 3.17 5.03 4.45.7.3 1.25.48 1.68.62.7.22 1.34.2 1.85.12.56-.08 1.75-.72 2-1.4.25-.7.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.85-1.28A10 10 0 1 0 12 2z"/></svg>
+      </a>
+    </div>
   </footer>
 
 </main>
@@ -611,6 +692,19 @@
       r.style.transitionDelay = (i * 90) + 'ms';
       io.observe(r);
     });
+  }
+
+  /* --- reviews marquee: duplicate cards for seamless loop --- */
+  var marquee = document.getElementById('marquee');
+  if (marquee) {
+    if (reduce) {
+      marquee.style.animation = 'none';
+      marquee.style.flexWrap = 'wrap';
+    } else {
+      // duplicate children so translateX(-50%) lands on identical content
+      marquee.innerHTML += marquee.innerHTML;
+      // duplicated aria/id would collide, but figures have no id so we're fine
+    }
   }
 })();
 </script>
