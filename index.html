@@ -85,21 +85,12 @@
     gap:1rem;padding-block:.85rem;
   }
   .mark{
-    font-family:var(--display);font-weight:800;font-size:1.05rem;
-    letter-spacing:-.02em;text-decoration:none;color:var(--ink);
-    display:inline-flex;align-items:center;gap:.55rem;
+    display:inline-flex;align-items:center;
+    text-decoration:none;
   }
   .mark img{
-    width:2rem;height:2rem;
-    border-radius:50%;
+    height:2.6rem;width:auto;
     display:block;
-  }
-  .mark-name{line-height:1;}
-  .mark-name b{display:block;font-weight:800;}
-  .mark-name small{
-    display:block;font-family:var(--mono);font-weight:500;
-    font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--slate);margin-top:.15rem;
   }
 
   .btn{
@@ -417,8 +408,7 @@
     .bar .btn span.hide-sm{display:none;}
     .quote{flex-basis:18rem;}
     .said-head{grid-template-columns:1fr;gap:.75rem;}
-    .mark-name small{display:none;}
-    .mark{font-size:.98rem;}
+    .mark img{height:2.2rem;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -431,12 +421,8 @@
 
 <header class="bar">
   <div class="shell bar-in">
-    <a class="mark" href="#top" aria-label="V&amp;R Computadoras — inicio">
-      <img src="/apple-touch-icon.png" alt="" width="32" height="32">
-      <span class="mark-name">
-        <b>V&amp;R Computadoras</b>
-        <small>Reparación · Consultoría · Insumos</small>
-      </span>
+    <a class="mark" href="#top" aria-label="Tu PC — inicio">
+      <img src="/logo.png" alt="Tu PC · Venta y Reparación">
     </a>
     <a class="btn" href="https://wa.me/5491165129359" target="_blank" rel="noopener">
       Escribime <span class="hide-sm">por WhatsApp</span>
@@ -640,7 +626,7 @@
 
   <footer class="shell">
     <div>
-      <div class="tag" style="margin-bottom:.5rem;">V&amp;R Computadoras · Reparación, consultoría e insumos</div>
+      <div class="tag" style="margin-bottom:.5rem;">Tu PC · Venta, reparación y soporte técnico</div>
       <div class="tag">Villa Lynch · General San Martín · Buenos Aires</div>
     </div>
     <div class="foot-social" aria-label="Redes sociales">
